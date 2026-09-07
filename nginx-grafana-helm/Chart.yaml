@@ -1,0 +1,14 @@
+apiVersion: v2
+name: nginx-grafana
+description: A Helm chart for Nginx with Grafana read-only mode configuration
+type: application
+version: 0.1.0
+appVersion: "1.26.0"
+keywords:
+  - nginx
+  - grafana
+  - reverse-proxy
+  - read-only
+maintainers:
+  - name: Admin
+    email: admin@example.com
