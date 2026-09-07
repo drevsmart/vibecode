@@ -1,5 +1,6 @@
-node_modules/
-.next/
-dist/
-build/
-*.log
+```
+# Helm/chart artifacts
+nginx-grafana-helm/templates/tests/
+nginx-grafana-helm/charts/
+nginx-grafana-helm/.helmignore
+```
