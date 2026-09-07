@@ -1,45 +1,126 @@
 @import "tailwindcss";
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  --color-ink-950: #0b0f15;
+  --color-ink-900: #0f141c;
+  --color-ink-850: #131a24;
+  --color-ink-800: #18202d;
+  --color-ink-700: #223044;
+  --color-ink-600: #31435c;
+
+  --color-fog-500: #64748b;
+  --color-fog-300: #94a3b8;
+  --color-fog-100: #dbe2ea;
+
+  --color-pulse-300: #6ee7b7;
+  --color-pulse-400: #34d399;
+  --color-pulse-500: #10b981;
+  --color-pulse-600: #059669;
+
+  --color-ember-300: #fcd34d;
+  --color-ember-400: #fbbf24;
+  --color-ember-500: #f59e0b;
+
+  --color-flare-400: #f87171;
+  --color-flare-500: #ef4444;
+
+  --color-wave-400: #38bdf8;
 }
 
+html {
+  scrollbar-color: #2a3648 #0b0f15;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(16, 185, 129, 0.28);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #374151;
-  border-radius: 3px;
+  background: #243042;
+  border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #4b5563;
+  background: #31435c;
 }
 
-/* Textarea styling */
+/* --- animations --- */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink-caret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.45); }
+  55% { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+}
+
+@keyframes scan {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(400%); }
+}
+
+.anim-rise {
+  animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.caret::after {
+  content: "▊";
+  margin-left: 2px;
+  color: #34d399;
+  animation: blink-caret 1s step-end infinite;
+}
+
+.live-dot {
+  animation: pulse-dot 2.2s ease-out infinite;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-shown {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* grid backdrop */
+.bg-blueprint {
+  background-image:
+    linear-gradient(rgba(99, 131, 168, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 131, 168, 0.055) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 100%);
+}
+
 textarea {
   tab-size: 4;
-}
-
-/* Line clamp utility */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Smooth animations */
-* {
-  transition-property: background-color, border-color, color;
-  transition-duration: 150ms;
-  transition-timing-function: ease;
-}
-
-/* Reset transition for specific elements that shouldn't animate */
-textarea, pre, input {
-  transition: none;
 }
